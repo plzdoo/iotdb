@@ -83,11 +83,17 @@ public class ClusterPlanExecutorTest extends BaseQueryTest {
   @Test
   public void testGetAllStorageGroupNodes() {
     List<IStorageGroupMNode> allStorageGroupNodes = queryExecutor.getAllStorageGroupNodes();
+    List<IStorageGroupMNode> test = IoTDB.metaManager.getAllStorageGroupNodes();
+    HashSet<String> s1 = new HashSet<String>();
+    HashSet<String> s2 = new HashSet<String>();
     for (int i = 0; i < allStorageGroupNodes.size(); i++) {
-      assertEquals(
-          IoTDB.metaManager.getAllStorageGroupNodes().get(i).getFullPath(),
-          allStorageGroupNodes.get(i).getFullPath());
+      s1.add(allStorageGroupNodes.get(i).getFullPath());
+      s2.add(test.get(i).getFullPath());
+      // assertEquals(
+      //     IoTDB.metaManager.getAllStorageGroupNodes().get(i).getFullPath(),
+      //     allStorageGroupNodes.get(i).getFullPath());
     }
+    assertEquals(s1, s2);
   }
 
   @Test
